@@ -1,25 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useCallback, useState } from "react";
+import "./App.css";
+import GlobalStyle, { Container } from "./App.styled";
+import MainPanel from "./MainPanel";
+import TopPanel from "./TopPanel";
 
 function App() {
+  const [value, setValue] = useState<number>(0);
+  const [text, setText] = useState<string>("");
+
+  const updateThig = useCallback((value: number, text: string) => {
+    setValue(value);
+    setText(text);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyle />
+      <Container>
+        <TopPanel value={value} text={text} />
+        <MainPanel onChange={updateThig} />
+      </Container>
+    </>
   );
 }
 
